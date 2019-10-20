@@ -129,9 +129,17 @@ public class SNSChatServer {
                     // 이미지를 전송한 경우
                     else if ("image".equals(type)) {
                         sendImage(request, jsonObject);
-                    } else if ("check".equals(type)) {
+                    }
+                    //동영상을 전송한 경우
+                    else if("video".equals(type)) {
+                        sendVideo(request, jsonObject);
+                    }
+                    //메세지 확인
+                    else if ("check".equals(type)) {
                         sendCheckMessage(jsonObject, request);
-                    } else if ("enter".equals(type)) {
+                    }
+                    //채팅방 입장
+                    else if ("enter".equals(type)) {
                         notifyPraricipantEntered(jsonObject, request);
                     }
                     // 특정 사용자가 방을 나가는 경우
@@ -258,6 +266,12 @@ public class SNSChatServer {
         }
 
         private void sendImage(String request, JSONObject jsonObject) {
+            String data = request;
+            broadcast(data, jsonObject);
+        }
+
+
+        private void sendVideo(String request, JSONObject jsonObject) {
             String data = request;
             broadcast(data, jsonObject);
         }
@@ -527,5 +541,6 @@ public class SNSChatServer {
             System.out.println(log);
         }
     }
+
 
 }
